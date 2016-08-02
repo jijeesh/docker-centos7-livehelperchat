@@ -8,7 +8,7 @@ ENV user apache
 ENV listen *
 #Virtual hosting
 RUN yum install -y httpd
-RUN yum install -y --skip-broken php php-devel php-mysqlnd php-common php-pdo php-mbstring php-xml
+RUN yum install -y --skip-broken php php-devel php-mysqlnd php-common php-pdo php-gd php-bcmath php-mbstring php-xml
 RUN yum install -y make gcc libtool re2c file git
 RUN mkdir -p $dir${cname}_$servn
 RUN chown -R ${user}:${user}  $dir${cname}_$servn
@@ -20,6 +20,18 @@ RUN mkdir -p ${dir}${cname}_${servn}/logs
 #RUN mkdir -p ${dir}${cname}_${servn}/public_html
 
 RUN git clone https://github.com/LiveHelperChat/livehelperchat.git ${dir}${cname}_${servn}/livehelperchat
+RUN chmod -R 777 ${dir}${cname}_${servn}/livehelperchat/lhc_web/cache
+#RUN chmod -R 777 ${dir}${cname}_${servn}/livehelperchat/lhc_web/settings/settings.ini.php
+#RUN chmod -R 777 ${dir}${cname}_${servn}/livehelperchat/lhc_web/settings/settings.ini.default.php
+RUN chmod -R 777 ${dir}${cname}_${servn}/livehelperchat/lhc_web/settings
+RUN chmod -R 777 ${dir}${cname}_${servn}/livehelperchat/lhc_web/var/storage
+RUN chmod -R 777 ${dir}${cname}_${servn}/livehelperchat/lhc_web/var/userphoto
+RUN chmod -R 777 ${dir}${cname}_${servn}/livehelperchat/lhc_web/var/storageform
+RUN chmod -R 777 ${dir}${cname}_${servn}/livehelperchat/lhc_web/var/storageadmintheme
+RUN chmod -R 777 ${dir}${cname}_${servn}/livehelperchat/lhc_web/var/storagedocshare
+RUN chmod -R 777 ${dir}${cname}_${servn}/livehelperchat/lhc_web/var/storagetheme
+RUN chmod -R 777 ${dir}${cname}_${servn}/livehelperchat/lhc_web/var/tmpfiles
+
 
 RUN printf '# * Hardening Apache \n\
 ServerTokens Prod \n\
